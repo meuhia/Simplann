@@ -1,4 +1,3 @@
-
 from datetime import datetime
 import factory
 from factory.compat import UTC
@@ -40,7 +39,7 @@ class EventUserFactory(factory.DjangoModelFactory):
     title = factory.Sequence(lambda n: u'Mon Evenement No{0}'.format(n))
     description = factory.Sequence(lambda n: 'La mini description de mon Evenement No{0}'.format(n))
     place = factory.Iterator(['Paris', 'Geneve', 'Kiev', 'Londres', None])
-    mailing_list = 'destinator1@simplan.com, destinator2@simplan.com'
+    mailing_list = 'destinator1@gmail.com, destinator2@gmail.com'
     
 class EventGuestFactory(factory.DjangoModelFactory):
     FACTORY_FOR = EventGuest
@@ -49,6 +48,6 @@ class EventGuestFactory(factory.DjangoModelFactory):
     description = factory.Sequence(lambda n: 'La mini description de mon Evenement No{0}'.format(n))
     place = factory.Iterator(['Paris', 'Geneve', 'Kiev', 'Londres', None])
     author = factory.Sequence(lambda n: 'Auteur{0}'.format(n))
-    email = factory.Sequence(lambda n: 'author{0}@simplan.com'.format(n))
-    mailing_list = 'destinator1@simplan.com, destinator2@simplan.com'
+    email = factory.Sequence(lambda n: 'author{0}@gmail.com'.format(n))
+    mailing_list = 'destinator1@gmail.com, destinator2@gmail.com'
     
