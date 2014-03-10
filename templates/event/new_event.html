@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block header %}
+<h1>Simplan.</h1>
+<p>{% trans "Planifier vos évènements, simplement" %}</p>
+{% endblock %}
+
+{% block breadcrumb %}
+    <a href="#" class="current">{% trans "Evènement" %}</a>
+    <a href="#" class="unavailable">{% trans "Choix" %}</a>
+    <a class="unavailable" href="#">{% trans "Récapitulatif" %}</a>
+{% endblock %}
+
+{% block content %}
+<div class="row content">
+<div class="large-12 columns">
+    <div class="large-2 columns">
+    </div>
+    <div class="large-8 small-centered columns">
+        {% crispy form %}
+    </div>
+    <div class="large-2 columns">
+    </div>
+</div>
+</div>
+{% endblock %}

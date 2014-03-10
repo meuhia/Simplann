@@ -1,0 +1,45 @@
+.header {
+    background-color: darken($primary-color, 10%);
+    background-image: url("../img/retina_wood.png");
+
+    h1, p {
+        color: darken($primary-color, 10%);
+    }
+
+    p {
+        padding-bottom: emCalc(5px);
+    }
+
+    // margin-bottom: emCalc(10px);
+    border-top : solid 3px darken($primary-color, 10%);
+}
+
+.breadcrumbs {
+	margin-bottom: emCalc(40px);
+}
+
+.content {
+	padding-top: emCalc(40px);
+	box-shadow: 1px 1px 12px darken($primary-color, 10%);
+	margin-bottom: emCalc(40px);
+	background-image: url("../img/retina_wood.png");
+}
+
+.footer {
+	margin-top: emCalc(40px);
+	padding-top: emCalc(20px);
+	background-color: #333;
+	color: $primary-color;
+}
+
+table {
+    width : 100%
+}
+
+td.alert {
+    background-color: lighten($alert-color, 20%);
+}
+
+td.success {
+    background-color: lighten($success-color, 20%);
+}

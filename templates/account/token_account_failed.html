@@ -1,0 +1,21 @@
+{% extends "account/base.html" %}
+
+{% block title %}
+    Jeton expiré
+{% endblock %}
+
+{% block headline %}
+    Jeton expiré
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="current"><a href="#">Jeton expiré</a></li>
+{% endblock %}
+
+{% block content %}
+<div class="large-12 columns">
+    <p>
+        Désolé, votre jeton de confirmation a expiré, vous devez vous <a href="{% url "Simplan.account.views.register_view" %}">réinscrire</a>.
+    </p>
+</div>
+{% endblock %}

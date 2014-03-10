@@ -1,0 +1,76 @@
+{% load staticfiles %}
+{% load compressed %}
+{% load profile %}
+{% load humane_date %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+
+    <title>{% block title %}Sans nom{% endblock %}{% block title_base %}{% endblock %} &#183; Simplan</title>
+
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0">
+
+    <meta name="viewport" content="width=device-width" />
+
+    {% block meta %}{% endblock %}
+
+    {% compressed_css "simplan" %}
+
+    {# for additionnal css in some pages #}
+    {% block extracss %}{% endblock %}
+
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    {# favicons #}
+    <link rel="shortcut icon" type="image/png" href="{% static "img/favicon.png" %}" />
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static "img/touch-icon-114x114.png" %}" />
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static "img/touch-icon-72x72.png" %}" />
+    <link rel="apple-touch-icon" href="{% static "img/touch-icon-iphone.png" %}" />
+
+</head>
+
+<body>
+    <nav class="top-bar" data-topbar>
+      <ul class="title-area">
+        <li class="name">
+          <h1><a href="#">Simplan</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+      </ul>
+    </nav>
+    <div class="header">
+        <div class="row">
+            {% block header %}{% endblock %}
+        </div>
+    </div>
+
+    {% block content %}{% endblock %}
+
+    {# Footer #}
+    <div class="footer">
+        <div class="row full-width">
+            <div class="large-4 columns">
+                <p>&copy; Simplan 2014</p>
+            </div>
+            <div class="large-8 columns">
+                <ul class="inline-list right">
+                    <li><a href="#">Code du projet</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {# Javascript stuff start #}
+    {% compressed_js "simplan" %}
+
+    {# for addtionnal javascript in some pages #}
+    {% block extrajs %}{% endblock %}
+
+    {# Foundation #}
+    <script>
+        $(document).foundation();
+    </script>
+</body>
+</html>

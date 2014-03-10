@@ -1,0 +1,9 @@
+Bienvenue {{username}},
+
+Pour terminer votre inscription, vous devez cliquer sur le lien suivant :
+
+http://{{url}}
+
+Cordialement,
+
+L'équipe {{url_site}}

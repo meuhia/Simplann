@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load event %}
+{% load i18n %}
+
+{% block header %}
+<h1>{% trans "Récap." %}</h1>
+<p>{% trans "Vous vous appretez à terminer votre sondage, n'oubliez pas d'envoyer un courriel aux invités" %}</p>
+{% endblock %}
+
+{% block breadcrumb %}
+    <a href="{% url "Simplan.event.views.edit_event" event.slug %}">{% trans "Evènement" %}</a>
+    <a href="{% url "Simplan.event.views.new_option" event.slug %}">{% trans "Choix" %}</a>
+    <a class="current" href="#">{% trans "Récapitulatif" %}</a>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="row">
+	<div class="large-12 columns">
+		{% if messages %}
+		    {% for message in messages %}
+		    <div data-alert class="alert-box {% if message.tags %} class="{{ message.tags }}"{% endif %} radius">
+		    	{{ message }}
+		    	<a href="#" class="close">&times;</a>
+			</div>
+		    {% endfor %}
+		{% endif %}
+	</div>
+</div>
+<div class="row content">
+	<div class="large-8 large-centered columns">
+		<small>{% trans "Lien à partager" %} : <span class="label secondary">{{event.get_absolute_url}}</span></small>
+		<a href="#" data-reveal-id="myModal" data-reveal class="button tiny"><i class="fa fa-share"></i></a>
+		<div id="myModal" class="reveal-modal" data-reveal>
+		  <h2>{% trans "Emails de diffusion" %}</h2>
+		  <p class="lead">{% trans "Renseignez les adresses emails des personnes à qui vous souhaitez diffuser le sondage" %}</p>
+		  {% crispy form %}
+		  <a class="close-reveal-modal">&#215;</a>
+		</div>
+		<table><thead>
+			<tr>
+				<th>{% trans "Options" %}</th>
+				<th>{% trans "Réponses possibles" %}</th>
+				<th>
+					<a href="#" data-dropdown="dropanswer-add" data-tooltip class="has-tip" title="{% trans 'Ajouter une nouvelle réponse possible à toutes les options' %}"><i class="fa fa-plus"></i></a>
+					<ul id="dropanswer-add" data-dropdown-content class="f-dropdown">
+						<form method="post" id="form_answeradd" name="form_answeradd" action="{% url "Simplan.event.views.modify_choice" %}">
+							{% csrf_token %}
+							<input type="hidden" name="event_pk" value="{{event.pk}}" />
+						  	<input type="text" name="choice_title" value="{{choice.title}}" />
+						  	<input type="checkbox" name="choice_positive" {% if choice.positive %}checked{% endif %}><label for="checkbox1">{% trans "Est positif" %} ?</label>
+					  		<input name="answer_add" type="submit" class="button tiny" value="{% trans 'Ajouter' %}" />
+					  	</form>
+					</ul>
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for opt in event.get_options %}
+				{% with option=opt|cast_option %}
+					{% if option.start_date %}
+					<tr>
+						<td>{{ option.start_date|date:"d M - H:i → l" }}</td>
+						<td>
+							{% for choice in option.get_choices %}
+							<a class='radius {% if choice.positive %}success{% else %}alert{% endif %} label' href="#" data-dropdown="drop-{{choice.pk}}">{{ choice.title }}</a>
+							<ul id="drop-{{choice.pk}}" data-dropdown-content class="f-dropdown">
+								<form method="post" id="form-{{choice.pk}}" name="form-{{choice.pk}}" action="{% url "Simplan.event.views.modify_choice" %}">
+									{% csrf_token %}
+									<input type="hidden" name="choice_pk" value="{{choice.pk}}" />
+									<input type="hidden" name="option_pk" value="{{option.pk}}" />
+								  	<input type="text" name="choice_title" value="{{choice.title}}" />
+								  	<input type="checkbox" name="choice_positive" {% if choice.positive %}checked{% endif %}><label for="checkbox1">{% trans "Est positif" %} ?</label>
+								  	<ul class="button-group radius">
+								  		<input name="choice_maj" type="submit" class="button tiny" value="{% trans 'Modifier' %}" />
+								  		<input name="choice_add" type="submit" class="button tiny secondary" value="{% trans 'Créer' %}" />
+								  	</ul>
+							  	</form>
+							</ul>
+							<a href="{% url "Simplan.event.views.del_choice" choice.pk %}" data-tooltip class="has-tip" title="{% blocktrans %}Supprimer la réponse «{{choice.title}}» pour l'option «{{option.start_date|date:'d M - H:i'}}»{% endblocktrans %}"><i class="fa fa-times" ></i></a> 
+							{% endfor %}
+						</td>
+						<td></td>
+					</tr>
+					{% endif %}
+					
+					{% if option.text %}
+					<tr>
+						<td>{{ option.text }}</td>
+						<td>
+							{% for choice in option.get_choices %}
+							<a class='radius {% if choice.positive %}success{% else %}alert{% endif %} label' href="#" data-dropdown="drop-{{choice.pk}}">{{ choice.title }}</a>
+							<ul id="drop-{{choice.pk}}" data-dropdown-content class="f-dropdown">
+								<form method="post" id="form-{{choice.pk}}" name="form-{{choice.pk}}" action="{% url "Simplan.event.views.modify_choice" %}">
+									{% csrf_token %}
+									<input type="hidden" name="choice_pk" value="{{choice.pk}}" />
+								  	<input type="text" name="choice_title" value="{{choice.title}}" />
+								  	<input type="checkbox" name="choice_positive" {% if choice.positive %}checked{% endif %}><label for="checkbox1">{% trans "Est positif" %} ?</label>
+								  	<ul class="button-group radius">
+								  		<input name="choice_maj" type="submit" class="button tiny" value="{% trans 'Modifier' %}" />
+								  		<input name="choice_add" type="submit" class="button tiny secondary" value="{% trans 'Créer' %}" />
+								  	</ul>
+							  	</form>
+							</ul>
+							<a href="{% url "Simplan.event.views.del_choice" choice.pk %}" data-tooltip class="has-tip" title="{% blocktrans %}Supprimer la réponse «{{choice.title}}» pour l'option «{{option.text}}»{% endblocktrans %}"><i class="fa fa-times" ></i></a> 
+							{% endfor %}
+						</td>
+						<td></td>
+					</tr>
+					{% endif %}
+				{% endwith %}
+			{% endfor %}
+			<tbody>
+		</table>
+		<div class="large-8 large-centered columns">
+		<ul class="button-group round large-centered">
+		  <li><a href="{% url "Simplan.event.views.new_option" event.slug %}" class="button secondary">{% trans "Précédent" %}</a></li>
+		  <li><a href="{% url "Simplan.event.views.end_event" event.slug %}" class="button">{% trans "Terminer" %}</a></li>
+		</ul>
+		</div>
+	</div>
+</div>
+{% endblock %}

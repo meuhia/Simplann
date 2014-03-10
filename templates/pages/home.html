@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load humane_date %}
+{% load staticfiles %}
+
+{# Titles #}
+
+{% block title %}
+    Accueil
+{% endblock %}
+
+{% block meta %}
+    <meta name="description" content="Bienvenue sur Simplan, Votre outils de plannification d'evenements" />
+{% endblock %}
+
+{# Content #}
+{% block headline-sub %}
+Bienvenue sur Simplan
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% include "event/new_event.html" %}
+</div>
+{% endblock %}

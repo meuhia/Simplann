@@ -1,0 +1,89 @@
+{% extends "account/base.html" %}
+{% load humane_date %}
+
+{% block title %}
+    {{ usr.username }}
+{% endblock %}
+
+{% block headline %}
+    {{ usr.username }}
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url "Simplan.account.views.index" %}">Utilisateurs</a></li>
+    <li><a href="{% url "Simplan.account.views.details" usr.username %}">{{ usr.username }}</a></li>
+    <li class="current">Voir</li>
+{% endblock %}
+
+{% block headline-actions %}
+    {% ifequal profile.user user %}
+        <a href="{% url "Simplan.account.views.settings_profile" %}" class="button">
+            <i class="icon-cog"></i>
+            Paramètres
+        </a>
+    {% endifequal %}
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="large-12 columns">
+        <p>
+            Inscrit {{ usr.date_joined|humane_date }},
+            dernière connexion {{ usr.last_login|humane_date }}.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="large-3 columns">
+        <h3>Sondages</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Crées</td>
+                    <td>{{ profile.get_events.count }}</td>
+                </tr>
+                <tr>
+                    <td>Participés</td>
+                    <td>{{ profile.get_participate_events.count }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="large-3 columns">
+        <h3>Facebook</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Id</td>
+                    <td>{{ profile.id_facebook }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="large-3 columns">
+        <h3>Twitter</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Id</td>
+                    <td>{{ profile.id_twitter }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="large-3 columns">
+        <h3>Google Plus</h3>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Id</td>
+                    <td>{{ profile.id_gplus }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load event %}
+{% load i18n %}
+
+{% block header %}
+<h1>{{event.title}} : {{event.place}}</h1>
+<p>{{event.description}}</p>
+{% endblock %}
+
+{% block content %}
+
+<div class="row content">
+	<div class="large-11 large-centered columns">
+		<form method="post" action="{% url "Simplan.event.views.make_choice" event.slug %}">
+		{% csrf_token %}
+		<table class="expand" width="100%"><thead>
+			<tr>
+				<th></th>
+				{% for opt in event.get_options %}
+					{% with option=opt|cast_option %}
+						{% if option.start_date %}
+							<th>{{option.start_date|date:'d M - H:i'}}</th>
+						{% endif %}
+						{% if option.text %}
+							<th>{{option.text}}</th>
+						{% endif %}
+					{% endwith %}
+				{% endfor %}
+			</tr>
+			<tr>
+				<th></th>
+				{% for opt in event.get_options %}
+					{% with option=opt|cast_option %}
+					<th>{% if option.image %}<img src="{{option.image.url}}" style="max-width:100px;max-height:100px;"/>{%endif%}</th>
+					{% endwith %}
+				{% endfor %}
+			</tr>
+			</thead>
+			<tbody>
+			{% with chs=event.get_participants %}
+				{% for choicer in chs.member %}
+				<tr>
+					<td>
+						{% if user.is_authenticated and user.pk = choicer.pk %}
+							<a href="#" data-dropdown="dropchoicer-{{choicer}}">{{choicer}}</a>
+							<ul id="dropchoicer-{{choicer}}" data-dropdown-content class="f-dropdown">
+									<li><a href="{% url "Simplan.event.views.del_makechoices" event.slug %}?user={{choicer}}">{% trans "Supprimer" %}</a></li>
+									
+		                    </ul>
+			            {% else %}        
+			            	<label>{{choicer}}</label>
+	                    {% endif %}
+					</td>
+					{% for option in event.get_options %}
+					{% with ch=option|get_choice_by_user:choicer %}
+					<td {% if ch.positive %}class="success"{% else %}class="alert"{%endif%}>
+						<span>{{ch.title}}</span>
+					</td>
+					{% endwith %}
+					{% endfor %}
+				</tr>
+				{% endfor %}
+
+				{% for choicer in chs.guest %}
+				{% if choicer = username %}
+				<input type="hidden" name="edit" value="True" />
+				<tr>
+					<td>
+						<input type="text" name="pseudo" value="{{username}}" />
+					</td>
+					{% for option in event.get_options %}
+						{% with ch=option|get_choice_by_username:choicer %}
+						<td>
+							{% for choice in option.get_choices %}
+
+								<input type="radio" name="{{option.pk}}" value="{{choice.pk}}" {% if choice.pk = ch.pk %}checked{% endif %}> {{choice.title}}<br>
+							{% endfor %}
+						</td>
+						{% endwith %}
+					{% endfor %}
+				</tr>
+				{% else %}
+				<tr>
+					<td>
+						{% if not user.is_authenticated %}
+							<a href="#" data-dropdown="dropchoicer-{{choicer|slugify}}">{{choicer}}</a>
+							<ul id="dropchoicer-{{choicer|slugify}}" data-dropdown-content class="f-dropdown">
+		                      <li><a href="{% url "Simplan.event.views.view_event" event.slug_public %}?username={{choicer}}">{% trans "Modifier" %}</a></li>
+		                      <li><a href="{% url "Simplan.event.views.del_makechoices" event.slug %}?username={{choicer}}">{% trans "Supprimer" %}</a></li>
+		                    </ul>
+		                {% else %}    
+		                	<label>{{choicer}}</label>
+	                    {% endif %}
+					</td>
+					{% for option in event.get_options %}
+					{% with ch=option|get_choice_by_username:choicer %}
+					<td {% if ch.positive %}class="success"{% else %}class="alert"{%endif%}>
+						<span>{{ch.title}}</span>
+					</td>
+					{% endwith %}
+					{% endfor %}
+				</tr>
+				{% endif %}
+				{% endfor %}
+			{% endwith %}
+			{% if event.get_max_mc_positive > 0 and not username %}
+			<tr>
+				<td>Total</td>
+				{% for option in event.get_options %}
+					<td>
+						{% for choice in option.get_choices %}
+							{% if choice.positive %}
+								<span {% if event.get_max_mc_positive == option.get_makechoice_positive_count %} data-tooltip title="{% trans 'La majorité prefère cette option, vous devez essayer' %}" class="has-tip tiny label"{% else %}class="tiny label secondary"{% endif %} >{{choice.title}} : {{choice.get_makechoice_count}}</span>
+							{% endif %}
+						{% endfor %}
+					</td>
+				{% endfor %}
+			</tr>
+			{% endif %}
+			{% if not username %}
+			<tr>
+				<td>
+					{% if user.is_authenticated %}
+					<input type="hidden" name="pseudo" value="{{user.pk}}" />
+					<label>{{user.username}}</label>
+					{% else %}
+					<input type="text" name="pseudo" placeholder="{% trans 'Votre Pseudo' %}" />
+					{% endif %}
+				</td>
+				{% for option in event.get_options %}
+					<td>
+						{% for choice in option.get_choices %}
+							<input type="radio" name="{{option.pk}}" value="{{choice.pk}}" {% if not choice.positive %}checked{% endif %}> {{choice.title}}<br>
+						{% endfor %}
+					</td>
+				{% endfor %}
+			</tr>
+			{% endif %}
+			<tbody>
+		</table>
+		<input name="save" type="submit" class="button tiny" value="{% trans 'Enregistrer' %}" />
+		</form>
+	</div>
+
+</div>
+{% endblock %}

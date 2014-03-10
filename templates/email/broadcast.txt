@@ -1,0 +1,9 @@
+Bonjour,
+
+Vous recevez cet email, parce que {{author}} vous a invité à participer à un sondage.
+
+Pour y parvenir veuillez cliquer sur le lien suivant : http://{{event.get_absolute_url}}
+
+Cordialement,
+
+L'équipe {{url_site}}

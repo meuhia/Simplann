@@ -1,0 +1,21 @@
+{% extends "account/settings_base.html" %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumb %}
+    <li><a href="{% url "Simplan.account.views.settings_profile" %}">Paramètres</a></li>
+    <li class="current"><a href="#">Mot de passe</a></li>
+{% endblock %}
+
+{% block subnav %}
+    <dd><a href="{% url "Simplan.account.views.settings_profile" %}">Profil</a></dd>
+    <dd class="active"><a href="{% url "Simplan.account.views.settings_account" %}">Mot de passe</a></dd>
+    <dd ><a href="{% url "Simplan.account.views.settings_user" %}">Pseudo/Email</a></dd>
+{% endblock %}
+
+{% block settings_form %}
+<div class="row">
+    <div class="large-12 columns">
+        {% crispy form %}
+    </div>
+</div>
+{% endblock %}

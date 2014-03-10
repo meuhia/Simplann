@@ -1,0 +1,13 @@
+Bonjour {{author}},
+
+Vous venez de créer un sondage sur {{url_site}}. Nous vous conseillons de conserver précieusement cet email, car il contient les informations récapitulatives de votre sondage.
+
+Lien d'adminstration : http://{{event.get_absolute_admin_url}}
+
+Lien à partager : http://{{event..get_absolute_url}}</p>
+
+Liste des adresses de diffusion de votre sondage : {{event.mailing_list}}
+
+Cordialement,
+
+L'équipe {{url_site}}

@@ -1,0 +1,321 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-03-04 19:02+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Simplan/settings.py:54
+msgid "Français"
+msgstr ""
+
+#: Simplan/settings.py:55
+msgid "Anglais"
+msgstr ""
+
+#: Simplan/event/forms.py:15
+msgid "Votre nom"
+msgstr ""
+
+#: Simplan/event/forms.py:19
+msgid "Séparer les emails par des virgules"
+msgstr ""
+
+#: Simplan/event/forms.py:57
+msgid "Décrivez votre événement"
+msgstr ""
+
+#: Simplan/event/forms.py:82
+msgid "Selectionnez une date"
+msgstr ""
+
+#: Simplan/event/forms.py:103
+msgid "Saisissez votre option"
+msgstr ""
+
+#: Simplan/event/forms.py:118
+msgid "Ce type de fichier n'est pas supporté"
+msgstr "This filetype are not support"
+
+#: Simplan/event/forms.py:149 Simplan/event/models.py:28
+msgid "Description du choix"
+msgstr "Choice description"
+
+#: Simplan/event/forms.py:167
+msgid "Séparez les emails par des virgules"
+msgstr ""
+
+#: Simplan/event/models.py:27
+msgid "Titre du choix"
+msgstr "Choice title"
+
+#: Simplan/event/models.py:29 Simplan/event/models.py:54
+msgid "Position"
+msgstr "Position"
+
+#: Simplan/event/models.py:30
+msgid "Choix positif"
+msgstr "Positive Choice"
+
+#: Simplan/event/models.py:31
+msgid "Option du choix"
+msgstr "Choice option"
+
+#: Simplan/event/models.py:52
+msgid "Choix requis"
+msgstr ""
+
+#: Simplan/event/models.py:53
+msgid "Evenement de l'option"
+msgstr "Event of option"
+
+#: Simplan/event/models.py:86
+msgid "Titre de l'évenement"
+msgstr "Event title"
+
+#: Simplan/event/models.py:87
+msgid "Description"
+msgstr "description"
+
+#: Simplan/event/models.py:88
+msgid "Lieu de l'évenement"
+msgstr "Event place"
+
+#: Simplan/event/models.py:89
+msgid "Slug"
+msgstr "Slug"
+
+#: Simplan/event/models.py:90
+msgid "Slug public"
+msgstr "public Slug"
+
+#: Simplan/event/models.py:91
+msgid "Liste de diffusion"
+msgstr "Mailing list"
+
+#: Simplan/event/models.py:181
+msgid "Auteur de l'évenement"
+msgstr "Author of event"
+
+#: Simplan/event/models.py:182
+msgid "Email de l'auteur"
+msgstr "Email of author"
+
+#: Simplan/event/models.py:192
+msgid "Auteur de l'évènement"
+msgstr ""
+
+#: Simplan/event/models.py:202
+msgid "Date de début"
+msgstr "Start date"
+
+#: Simplan/event/models.py:203
+msgid "Date de fin"
+msgstr "End date"
+
+#: Simplan/event/models.py:216
+msgid "Texte"
+msgstr "Text"
+
+#: Simplan/event/models.py:217
+msgid "Illustration"
+msgstr "Illustration"
+
+#: Simplan/event/models.py:230
+msgid "Choix de l'utilisateur"
+msgstr "User choice"
+
+#: Simplan/event/models.py:239
+msgid "Pseudo du votant"
+msgstr "poller username"
+
+#: Simplan/event/models.py:252
+msgid "Membre votant"
+msgstr "poller user"
+
+#: templates/base.html:12
+msgid "Sans nom"
+msgstr "No name"
+
+#: templates/base.html:42
+msgid "Menu"
+msgstr "Menu"
+
+#: templates/base.html:52
+msgid "Mon profil"
+msgstr "Profile"
+
+#: templates/base.html:53
+msgid "Mes paramètres"
+msgstr "Settings"
+
+#: templates/base.html:54
+msgid "Mes sondages"
+msgstr "Polls"
+
+#: templates/base.html:55
+msgid "Déconnexion"
+msgstr "Sign up"
+
+#: templates/base.html:59
+msgid "S'inscrire"
+msgstr "Registrer"
+
+#: templates/base.html:60
+msgid "Se connecter"
+msgstr "Login"
+
+#: templates/base.html:109
+msgid "Code Source"
+msgstr "Source code"
+
+#: templates/base.html:110
+msgid "Bugs/Suggestions"
+msgstr "Bugs/Suggests"
+
+#: templates/event/new_event.html:7
+msgid "Planifier vos évènements, simplement"
+msgstr "Organize your events, easily"
+
+#: templates/event/new_event.html:11 templates/event/new_option.html:12
+#: templates/event/recap_event.html:12
+msgid "Evènement"
+msgstr "Event"
+
+#: templates/event/new_event.html:12 templates/event/new_option.html:13
+#: templates/event/recap_event.html:13
+msgid "Choix"
+msgstr "Choice"
+
+#: templates/event/new_event.html:13 templates/event/new_option.html:14
+#: templates/event/recap_event.html:14
+msgid "Récapitulatif"
+msgstr "Summarize"
+
+#: templates/event/new_option.html:7 templates/event/recap_event.html:33
+msgid "Options"
+msgstr "Options"
+
+#: templates/event/new_option.html:8
+msgid "Ajouter des options à vos prévisions de planning"
+msgstr "Add new option for your previsions"
+
+#: templates/event/new_option.html:22
+msgid "Options temps"
+msgstr "Time options"
+
+#: templates/event/new_option.html:23
+msgid "Option libre"
+msgstr "Free option"
+
+#: templates/event/new_option.html:33
+msgid "Aucune option"
+msgstr "No option"
+
+#: templates/event/new_option.html:77 templates/event/recap_event.html:108
+msgid "Précédent"
+msgstr "Previous"
+
+#: templates/event/new_option.html:78
+msgid "Suivant"
+msgstr "Next"
+
+#: templates/event/recap_event.html:7
+msgid "Récap."
+msgstr "Summary"
+
+#: templates/event/recap_event.html:8
+msgid ""
+"Vous vous appretez à terminer votre sondage, n'oubliez pas d'envoyer un "
+"courriel aux invités"
+msgstr ""
+
+#: templates/event/recap_event.html:23
+msgid "Lien à partager"
+msgstr "Share link"
+
+#: templates/event/recap_event.html:26
+#, fuzzy
+msgid "Emails de diffusion"
+msgstr "Mailing list"
+
+#: templates/event/recap_event.html:27
+msgid ""
+"Renseignez les adresses emails des personnes à qui vous souhaitez diffuser "
+"le sondage"
+msgstr ""
+
+#: templates/event/recap_event.html:34
+#, fuzzy
+msgid "Réponses possibles"
+msgstr "Positive answer ?"
+
+#: templates/event/recap_event.html:36
+msgid "Ajouter une nouvelle réponse possible à toutes les options"
+msgstr ""
+
+#: templates/event/recap_event.html:42 templates/event/recap_event.html:64
+#: templates/event/recap_event.html:89
+#, fuzzy
+msgid "Est positif"
+msgstr "Are positive ?"
+
+#: templates/event/recap_event.html:43
+msgid "Ajouter"
+msgstr ""
+
+#: templates/event/recap_event.html:66 templates/event/recap_event.html:91
+#: templates/event/view_event.html:89
+msgid "Modifier"
+msgstr "Update"
+
+#: templates/event/recap_event.html:67 templates/event/recap_event.html:92
+msgid "Créer"
+msgstr "Add"
+
+#: templates/event/recap_event.html:71
+#, python-format
+msgid ""
+"Supprimer la réponse «%(choice.title)s» pour l'option "
+"«%(option.start_date|date:'d M - H:i')s»"
+msgstr ""
+"Remove answer «%(choice.title)s» for the "
+"«%(option.start_date|date:'d M - H:i')s» option"
+
+#: templates/event/recap_event.html:96
+#, python-format
+msgid "Supprimer la réponse «%(choice.title)s» pour l'option «%(option.text)s»"
+msgstr "Remove answer «%(choice.title)s» for the «%(option.text)s» option"
+
+#: templates/event/recap_event.html:109
+msgid "Terminer"
+msgstr "End"
+
+#: templates/event/view_event.html:48 templates/event/view_event.html.py:90
+msgid "Supprimer"
+msgstr "Remove"
+
+#: templates/event/view_event.html:114
+#, fuzzy
+msgid "La majorité prefère cette option, vous devez essayer"
+msgstr "Major people prefer this option, try it"
+
+#: templates/event/view_event.html:128
+msgid "Votre Pseudo"
+msgstr "Your username"
+
+#: templates/event/view_event.html:142
+msgid "Enregistrer"
+msgstr "Save"

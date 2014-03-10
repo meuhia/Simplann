@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block header %}Choisissez vos options{% endblock %}
+{% load crispy_forms_tags %}
+
+{% block breadcrumb %}
+    <a href="#">Evènement</a>
+    <a href="#" class="current">Choix</a>
+    <a class="unavailable" href="#">Paramètres</a>
+    <a class="unavailable" href="#">Confirmation</a>
+{% endblock %}
+
+
+
+{% block content %}
+<dl class="sub-nav">
+  <dd class="{% if type == 'time' %}active{% endif %}"><a href="{% url "Simplan.event.views.new_option" event.slug %}?type=time">Options temps</a></dd>
+  <dd class="{% if type == 'free' %}active{% endif %}" ><a href="{% url "Simplan.event.views.new_option" event.slug %}?type=free">Option libre</a></dd>
+</dl>
+
+<div class="row">
+	<div class="large-6 columns">
+	        {% crispy form %}
+	</div>
+	<div class="large-6 columns">
+		<table><thead>
+			<tr>
+				<th>Option</th>
+				<th></th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for option in event.get_time_options %}
+			<tr>
+				<td>{{ option.start_date }}</td>
+				<td><a href="{% url "Simplan.event.views.edit_option" option.id %}?type=time"><i class="fa icon-edit icon-2x"></i></a></td>
+				<td><a href="{% url "Simplan.event.views.del_option" option.id %}"><i class="fa icon-remove icon-2x"></i></a></td>
+			</tr>
+			{% endfor %}
+			{% for option in event.get_free_options %}
+			<tr>
+				<td>{{ option.text }}</td>
+				<td><a href="{% url "Simplan.event.views.edit_option" option.id %}?type=free"><i class="fa icon-edit icon-2x"></i></a></td>
+				<td><a href="{% url "Simplan.event.views.del_option" option.id %}"><i class="fa icon-remove icon-2x"></i></a></td>
+			</tr>
+			{% endfor %}
+			<tbody>
+		</table>
+	</div>
+
+</div>
+{% endblock %}
