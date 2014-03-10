@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/meuhia/Simplan.png?branch=master)](https://travis-ci.org/meuhia/Simplan)
-[![Coverage Status](https://coveralls.io/repos/meuhia/Simplan/badge.png)](https://coveralls.io/r/meuhia/Simplan)
+[![Build Status](https://travis-ci.org/meuhia/Simplann.png?branch=master)](https://travis-ci.org/meuhia/Simplann)
+[![Coverage Status](https://coveralls.io/repos/meuhia/Simplann/badge.png)](https://coveralls.io/r/meuhia/Simplann)
 
 Simplan
 =======
