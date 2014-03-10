@@ -540,7 +540,7 @@ def end_event(request, evt_id):
         except:
             email_admin = ''
             author = ''
-    if validate_email(email_admin, verify=True):
+    if validate_email(email_admin):
         subject = "Simplan - Lien du sondage : "+event.title
         from_email = 'Simplan <noreply@simplann.eu>'
         message_html = get_template('email/admin.html').render(
@@ -574,7 +574,7 @@ def end_event(request, evt_id):
     mass = event.mailing_list.split(',')
 
     for mail in mass:
-        if validate_email(mail, verify=True):
+        if validate_email(mail):
             message_html = get_template('email/broadcast.html').render(
                             Context({
                                 'url_site': settings.SITE_URL,
