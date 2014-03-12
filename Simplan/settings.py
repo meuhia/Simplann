@@ -15,7 +15,7 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/willy/workspace/Simplan/simpbd.db',                      # Or path to database file if using sqlite3.
+        'NAME': 'simpbd.db',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -100,7 +100,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '6smg4$vu%6*2b4^_#@-&8g@hkqyry$rl9ys=wgqmr@n*&9qoe+'
@@ -160,7 +160,7 @@ PIPELINE_JS = {
             'bower_components/foundation/js/foundation.min.js',
             'js/custom/foundation-datetimepicker.js',
         ),
-        'output_filename': 'jscript/simplan.js'
+        'output_filename': 'js/simplan.js'
     }
 }
 
