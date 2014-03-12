@@ -59,8 +59,9 @@ def new_event(request):
                 return HttpResponseRedirect(reverse('Simplan.event.views.new_option', args=[event.slug]))
     
             else:
-                # TODO: add errors to the form and return it
-                raise Http404
+                return render_template('event/new_event.html', {
+                    'form': form
+                })
         else:
     
             form = EventUserForm(request.user)
@@ -84,8 +85,9 @@ def new_event(request):
                 return HttpResponseRedirect(reverse('Simplan.event.views.new_option', args=[event.slug]))
     
             else:
-                # TODO: add errors to the form and return it
-                raise Http404
+                return render_template('event/new_event.html', {
+                    'form': form
+                })
         else:
             form = EventGuestForm(request.user)
             return render_template('event/new_event.html', {
@@ -525,6 +527,53 @@ def del_makechoices(request, evt_id):
     return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
 
 def end_event(request, evt_id):
+    event = Event.objects.get(slug = evt_id)
+    
+    #send mail for admin
+    try: 
+        evt = EventGuest.objects.get(pk=event.pk)
+        email_admin = evt.email
+        author = evt.author
+    except:
+        try: 
+            evt = EventUser.objects.get(pk=event.pk)
+            email_admin = evt.author.email
+            author = evt.author.username
+        except:
+            email_admin = ''
+            author = ''
+    if validate_email(email_admin):
+        subject = "Simplan - Lien du sondage : "+event.title
+        from_email = 'Simplan <noreply@simplann.eu>'
+        message_html = get_template('email/admin.html').render(
+                        Context({
+                            'url_site': settings.SITE_URL,
+                            'event': event,
+                            'author': author
+                        })
+                    )
+        message_txt = get_template('email/admin.txt').render(
+                        Context({
+                            'url_site': settings.SITE_URL,
+                            'event': event,
+                            'author': author
+                        })
+                    )
+    
+        msg = EmailMultiAlternatives(subject, message_txt, from_email, [email_admin])
+        msg.attach_alternative(message_html, "text/html")
+        msg.send()
+    else:
+        if request.user.is_authenticated():
+            messages.error(request, 'Votre adresse email est invalide. Allez dans les paramètres de votre profil pour la modifier')
+        else:
+            messages.error(request, 'Vous n\'avez pas saisi d\'adresse email valide au début de ce sondage. Retournez la modifier à la première étape')
+
+        return HttpResponseRedirect(reverse('Simplan.event.views.recap_event', args=[event.slug]))
+    
+    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
+
+def invit_end_event(request, evt_id):
     event = Event.objects.get(slug = evt_id)
     
     #send mail for admin

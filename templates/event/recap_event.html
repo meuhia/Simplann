@@ -30,9 +30,9 @@
 	</div>
 </div>
 <div class="row content">
-	<div class="large-8 large-centered columns">
+	<div class="large-10 large-centered columns">
 		<small>{% trans "Lien à partager" %} : <span class="label secondary">{{event.get_absolute_url}}</span></small>
-		<a href="#" data-reveal-id="myModal" data-reveal class="button tiny"><i class="fa fa-share"></i></a>
+		<a href="#" data-reveal-id="myModal" data-reveal class="button tiny"><i class="fa fa-users fa-2x"></i></a>
 		<div id="myModal" class="reveal-modal" data-reveal>
 		  <h2>{% trans "Emails de diffusion" %}</h2>
 		  <p class="lead">{% trans "Renseignez les adresses emails des personnes à qui vous souhaitez diffuser le sondage" %}</p>
@@ -114,9 +114,10 @@
 			{% endfor %}
 			<tbody>
 		</table>
-		<div class="large-8 large-centered columns">
+		<div class="large-9 large-centered columns">
 		<ul class="button-group round large-centered">
 		  <li><a href="{% url "Simplan.event.views.new_option" event.slug %}" class="button secondary">{% trans "Précédent" %}</a></li>
+		  <li><a href="{% url "Simplan.event.views.invit_end_event" event.slug %}" class="button">{% trans "Envoyer les invitatons" %}</a></li>
 		  <li><a href="{% url "Simplan.event.views.end_event" event.slug %}" class="button">{% trans "Terminer" %}</a></li>
 		</ul>
 		</div>

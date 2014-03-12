@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^participer/(?P<evt_id>.+)/$', views.view_event),
     url(r'^retirer/(?P<evt_id>.+)/$', views.del_makechoices),
     url(r'^terminer/(?P<evt_id>.+)/$', views.end_event),
+    url(r'^inviter_terminer/(?P<evt_id>.+)/$', views.invit_end_event),
     url(r'^choisir/(?P<evt_id>.+)/$', views.make_choice),
     url(r'^recapitulatif/(?P<evt_id>.+)/$', views.recap_event),
     

@@ -5,6 +5,7 @@ from crispy_forms_foundation.layout import Layout, Submit, Field, HTML
 from django import forms
 from django.template.defaultfilters import filesizeformat
 from django.utils.translation import ugettext_lazy as _
+from validate_email import validate_email
 
 from Simplan.settings import MAX_UPLOAD_SIZE, CONTENT_TYPES
 
@@ -12,11 +13,11 @@ from Simplan.settings import MAX_UPLOAD_SIZE, CONTENT_TYPES
 class EventGuestForm(forms.Form):
     author = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={'placeholder': _(u'Votre nom')}))
+        widget=forms.TextInput(attrs={'placeholder': _(u'Votre nom ou pseudonyme')}))
     
     email = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={'placeholder': _(u'Séparer les emails par des virgules')}))
+        widget=forms.TextInput(attrs={'placeholder': _(u'Renseignez votre adresse email')}))
     
     title = forms.CharField(
         required=True
@@ -31,6 +32,18 @@ class EventGuestForm(forms.Form):
         required=False
         )
     
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if not validate_email(email):
+            raise forms.ValidationError("Veuillez saisir une adresse email valide")
+        return email
+    
+    def clean_author(self):
+        author = self.cleaned_data['author']
+        if author.strip()=='':
+            raise forms.ValidationError("Vous devez saisir un nom ou pseudonyme")
+        return author
+        
     def __init__(self, user, *args, **kwargs):
         self.helper = FormHelper()
         self.helper.form_method = 'POST'

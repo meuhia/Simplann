@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 
 from Simplan.account.models import Profile
+from validate_email import validate_email
 
 
 class ProfileForm(forms.Form):
@@ -86,6 +87,20 @@ class RegisterForm(forms.Form):
         if User.objects.filter(username=username).count() > 0:
             msg = u'Ce nom d\'utilisateur est déjà utilisé'
             self._errors['username'] = self.error_class([msg])
+        
+        # Check that email doesn't exist yet
+        email = cleaned_data.get('email')
+        
+        print('-----------------> '+str(email))
+        if email==None :
+            msg = u'Veuillez renseigner votre adresse email'
+            self._errors['email'] = self.error_class([msg])
+        elif not validate_email(email):
+            msg = u'Cette adresse email ne respecte pas le format'
+            self._errors['email'] = self.error_class([msg])
+        elif User.objects.filter(email=email).count() > 0:
+            msg = u'Cette adresse email est déjà utilisée'
+            self._errors['email'] = self.error_class([msg])
 
         return cleaned_data
 

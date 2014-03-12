@@ -280,7 +280,10 @@ def register_view(request):
             return render_template('account/register_success.html', {
                 'user': user
             })
-
+        else:
+            return render_template('account/register.html', {
+                'form': form
+            }) 
 
     form = RegisterForm()
     return render_template('account/register.html', {

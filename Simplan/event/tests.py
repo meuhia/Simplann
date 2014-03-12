@@ -993,7 +993,7 @@ class EventGuestViewsTests(TestCase):
     def test_end_event_for_guest(self):
         egf = EventGuestFactory()
         
-        res = self.client.get(reverse('Simplan.event.views.end_event', args=[egf.slug]),follow=False)
+        res = self.client.get(reverse('Simplan.event.views.invit_end_event', args=[egf.slug]),follow=False)
         self.assertEqual(res.status_code, 302)
         
         self.assertEquals(len(mail.outbox), 3)
