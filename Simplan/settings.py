@@ -100,7 +100,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '6smg4$vu%6*2b4^_#@-&8g@hkqyry$rl9ys=wgqmr@n*&9qoe+'
