@@ -100,7 +100,7 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '6smg4$vu%6*2b4^_#@-&8g@hkqyry$rl9ys=wgqmr@n*&9qoe+'
@@ -160,7 +160,7 @@ PIPELINE_JS = {
             'bower_components/foundation/js/foundation.min.js',
             'js/custom/foundation-datetimepicker.js',
         ),
-        'output_filename': 'js/simplan.js'
+        'output_filename': 'jscript/simplan.js'
     }
 }
 
