@@ -20,11 +20,12 @@ from validate_email import validate_email
 from django.contrib import messages
 
 
-def view_event(request, evt_id):
+def view_event(request, evt_id1, evt_id2, evt_id3, evt_id4, evt_id5):
     '''
     View an event
     '''
     
+    evt_id = evt_id1 +"-"+evt_id2 +"-"+evt_id3 +"-"+evt_id4 +"-"+evt_id5
     try:
         username = request.GET['username'] #in case of edit participation
     except KeyError:

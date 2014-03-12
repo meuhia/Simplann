@@ -7,7 +7,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^editer/(?P<evt_id>.+)/$', views.edit_event),
-    url(r'^participer/(?P<evt_id>.+)/$', views.view_event),
+    #url(r'^participer/(?P<evt_id>.+)/$', views.view_event),
     url(r'^retirer/(?P<evt_id>.+)/$', views.del_makechoices),
     url(r'^terminer/(?P<evt_id>.+)/$', views.end_event),
     url(r'^inviter_terminer/(?P<evt_id>.+)/$', views.invit_end_event),
