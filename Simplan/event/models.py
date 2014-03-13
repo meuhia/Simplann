@@ -24,11 +24,11 @@ class Choice(models.Model):
         verbose_name = 'Choix'
         verbose_name_plural = 'Choix'
     
-    title = models.CharField(max_length=20, verbose_name=_(u"Titre du choix"))
-    description = models.TextField(blank=True, verbose_name=_(u"Description du choix"))
-    position = models.IntegerField(default=1, verbose_name=_(u"Position"))
-    positive = models.BooleanField(verbose_name=_(u"Choix positif"))
-    option = models.ForeignKey('Option', verbose_name=_(u"Option du choix"), related_name='option_choice')
+    title = models.CharField(max_length=20)
+    description = models.TextField(blank=True)
+    position = models.IntegerField(default=1)
+    positive = models.BooleanField()
+    option = models.ForeignKey('Option', related_name='option_choice')
     
     def get_makechoice_count(self):
         return MakeChoice.objects.filter(choice__pk=self.pk).count()
@@ -49,9 +49,9 @@ class Option(models.Model):
         verbose_name_plural = 'Options'
         ordering = ['position']
         
-    required = models.ForeignKey('Choice',verbose_name=_(u"Choix requis"), related_name='option_required', null=True, blank=True)
-    event = models.ForeignKey('Event', verbose_name=_(u"Evenement de l'option"), related_name='event')
-    position = models.IntegerField(verbose_name=_(u"Position"), default = 1)
+    required = models.ForeignKey('Choice', related_name='option_required', null=True, blank=True)
+    event = models.ForeignKey('Event', related_name='event')
+    position = models.IntegerField(default = 1)
     
     def get_choices(self):
         return Choice.objects.filter(option__pk=self.pk).order_by('position').all()
@@ -83,12 +83,12 @@ class Event(models.Model):
         verbose_name = 'Evenement'
         verbose_name_plural = 'Evenements'
 
-    title = models.CharField(verbose_name=_(u"Titre de l'évenement"), max_length=80)
-    description = models.TextField(verbose_name=_(u"Description"), blank=True, null=True)
-    place = models.CharField(verbose_name=_(u"Lieu de l'évenement"), max_length=128, blank=True, null=True)
-    slug = models.CharField(verbose_name=_(u"Slug"), max_length=80)
-    slug_public = models.CharField(verbose_name=_(u"Slug public"), max_length=80)
-    mailing_list = models.TextField(verbose_name=_(u"Liste de diffusion"), blank=True, null=True)
+    title = models.CharField(max_length=80)
+    description = models.TextField(blank=True, null=True)
+    place = models.CharField(max_length=128, blank=True, null=True)
+    slug = models.CharField(max_length=80)
+    slug_public = models.CharField(max_length=80)
+    mailing_list = models.TextField(blank=True, null=True)
     
     def get_absolute_url(self):
         return settings.SITE_URL+reverse('Simplan.event.views.view_event', args=[
@@ -178,8 +178,8 @@ class EventGuest(Event):
         verbose_name = 'Evenement d\'un invité'
         verbose_name_plural = 'Evenements d\'un invité'
     
-    author = models.CharField(verbose_name=_(u"Auteur de l'évenement"), max_length=256)
-    email = models.CharField(verbose_name=_(u"Email de l'auteur"), max_length=256)
+    author = models.CharField(max_length=256)
+    email = models.CharField(max_length=256)
     
     
 class EventUser(Event):
@@ -189,7 +189,7 @@ class EventUser(Event):
         verbose_name = 'Evenement d\'un utilisateur'
         verbose_name_plural = 'Evenements d\'un utilisateur'
         
-    author = models.ForeignKey(User, verbose_name=_(u"Auteur de l'évènement"), null=True, blank=True)
+    author = models.ForeignKey(User, null=True, blank=True)
 
 
 class OptionTime(Option):
@@ -199,8 +199,8 @@ class OptionTime(Option):
         verbose_name = 'Option de Temps'
         verbose_name_plural = 'Options de Temps'
     
-    start_date = models.DateTimeField(verbose_name=_(u"Date de début"))
-    end_date = models.DateTimeField(verbose_name=_(u"Date de fin"), null=True, blank=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField(null=True, blank=True)
     
     def __unicode__(self):
         '''Textual forum of an option time'''
@@ -213,8 +213,8 @@ class OptionFree(Option):
         verbose_name = 'Option Libre'
         verbose_name_plural = 'Options Libre'
     
-    text = models.CharField(verbose_name=_(u"Texte"), max_length=120)
-    image = models.ImageField(upload_to=image_path, verbose_name=_(u"Illustration"), null=True, blank=True)
+    text = models.CharField(max_length=120)
+    image = models.ImageField(upload_to=image_path, null=True, blank=True)
     
     def __unicode__(self):
         '''Textual forum of an option free'''
@@ -227,7 +227,7 @@ class MakeChoice(models.Model):
         verbose_name = 'Choix d\'un utilisateur'
         verbose_name_plural = 'Choix d\'un utilisateur'
 
-    choice = models.ForeignKey(Choice, verbose_name=_(u"Choix de l'utilisateur"))
+    choice = models.ForeignKey(Choice)
     
 class MakeGuestChoice(MakeChoice):
     '''Represents a choice by guest'''
@@ -236,7 +236,7 @@ class MakeGuestChoice(MakeChoice):
         verbose_name = 'Choix d\'un invité'
         verbose_name_plural = 'Choix d\'un invité'
     
-    username = models.CharField(verbose_name=_(u"Pseudo du votant"),  max_length=80)
+    username = models.CharField(max_length=80)
     
     def __unicode__(self):
         '''Textual MakeGuestChoice'''
@@ -249,7 +249,7 @@ class MakeUserChoice(MakeChoice):
         verbose_name = 'Choix d\'un membre'
         verbose_name_plural = 'Choix d\'un membre'
     
-    user = models.ForeignKey(User, verbose_name=_(u"Membre votant"))
+    user = models.ForeignKey(User)
     
     def __unicode__(self):
         '''Textual MakeUserChoice'''

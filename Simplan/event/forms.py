@@ -12,23 +12,28 @@ from Simplan.settings import MAX_UPLOAD_SIZE, CONTENT_TYPES
 
 class EventGuestForm(forms.Form):
     author = forms.CharField(
+        label=_(u'Votre nom'),
         required=True,
         widget=forms.TextInput(attrs={'placeholder': _(u'Votre nom ou pseudonyme')}))
     
     email = forms.CharField(
+        label=_(u'Votre email'),
         required=True,
         widget=forms.TextInput(attrs={'placeholder': _(u'Renseignez votre adresse email')}))
     
     title = forms.CharField(
+        label=_(u'Titre de l\'évènement'),
         required=True
         )
     
     description = forms.CharField(
+        label=_(u'Description'),
         required=False, 
         widget=forms.Textarea(attrs={'placeholder': ''})
         )
     
     place = forms.CharField(
+        label=_(u'Lieu de l\'évènement'),
         required=False
         )
     
@@ -62,15 +67,18 @@ class EventGuestForm(forms.Form):
 class EventUserForm(forms.Form):
     
     title = forms.CharField(
+        label=_(u'Titre de l\'évènement'),
         required=True
         )
     
     description = forms.CharField(
+        label=_(u'Description'),
         required=False, 
         widget=forms.Textarea(attrs={'placeholder': _(u'Décrivez votre événement')})
         )
     
     place = forms.CharField(
+        label=_(u'Lieu de l\'évènement'),
         required=False
         )
     
@@ -153,11 +161,12 @@ class OptionFreeForm(forms.Form):
 class ChoiceForm(forms.Form):
     
     title = forms.CharField(
+        label=_(u'Titre du choix'),
         required=True
         )
     
     description = forms.CharField(
-        label='Description du choix',
+        label=_(u'Description'),
         required=False, 
         widget=forms.TextInput(attrs={'placeholder': _(u'Description du choix')})
         )
