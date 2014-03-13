@@ -92,7 +92,7 @@ class Event(models.Model):
     
     def get_absolute_url(self):
         return settings.SITE_URL+reverse('Simplan.event.views.view_event', args=[
-            self.slug_public[0:8], self.slug_public[8:12], self.slug_public[12:16], self.slug_public[16:20], self.slug_public[20:32]
+            self.slug_public[0:8], self.slug_public[9:13], self.slug_public[14:18], self.slug_public[19:23], self.slug_public[24:36]
         ])
     
     def get_absolute_admin_url(self):
