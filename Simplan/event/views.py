@@ -215,7 +215,7 @@ def make_choice(request, evt_id):
             else :
                 print('réponse introuvable')
     
-    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
+    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public[0:8], event.slug_public[9:13], event.slug_public[14:18], event.slug_public[19:23], event.slug_public[24:36]]))
     
 def new_option(request, evt_id):
     event = get_object_or_404(Event, slug = evt_id)
@@ -525,7 +525,7 @@ def del_makechoices(request, evt_id):
         except:
             raise "Vous n'avez pas le droit d'effectuer cette action"
 
-    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
+    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public[0:8], event.slug_public[9:13], event.slug_public[14:18], event.slug_public[19:23], event.slug_public[24:36]]))
 
 def end_event(request, evt_id):
     event = Event.objects.get(slug = evt_id)
@@ -572,7 +572,7 @@ def end_event(request, evt_id):
 
         return HttpResponseRedirect(reverse('Simplan.event.views.recap_event', args=[event.slug]))
     
-    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
+    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public[0:8], event.slug_public[9:13], event.slug_public[14:18], event.slug_public[19:23], event.slug_public[24:36]]))
 
 def invit_end_event(request, evt_id):
     event = Event.objects.get(slug = evt_id)
@@ -644,4 +644,4 @@ def invit_end_event(request, evt_id):
             msg.attach_alternative(message_html, "text/html")
             msg.send()
 
-    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public]))
+    return HttpResponseRedirect(reverse('Simplan.event.views.view_event', args=[event.slug_public[0:8], event.slug_public[9:13], event.slug_public[14:18], event.slug_public[19:23], event.slug_public[24:36]]))
