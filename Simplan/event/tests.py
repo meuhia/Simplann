@@ -245,7 +245,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         res = self.client.post(reverse('Simplan.event.views.new_option', args=[euf.slug])+'?type=time', 
                                {'date': datetime.now()},
                                follow=False)
@@ -316,7 +316,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         otf1  = OptionTimeFactory(event=euf, position=1)
         otf2  = OptionTimeFactory(event=euf, position=2)
         otf3  = OptionTimeFactory(event=euf, position=3)
@@ -376,7 +376,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         off1  = OptionFreeFactory(event=euf, position=1)
         off2  = OptionFreeFactory(event=euf, position=2)
         off3  = OptionFreeFactory(event=euf, position=3)
@@ -435,7 +435,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         otf1  = OptionTimeFactory(event=euf, position=1)
         otf2  = OptionTimeFactory(event=euf, position=2)
         off1  = OptionFreeFactory(event=euf, position=3)
@@ -493,7 +493,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         otf1  = OptionFreeFactory(event=euf, position=1)
         otf2  = OptionFreeFactory(event=euf, position=2)
         off1  = OptionTimeFactory(event=euf, position=3)
@@ -582,7 +582,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         otf1  = OptionTimeFactory(event=euf, position=1)
         otf2  = OptionFreeFactory(event=euf, position=2)
         otf3  = OptionTimeFactory(event=euf, position=5)
@@ -615,7 +615,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         otf1  = OptionTimeFactory(event=euf, position=1)
         otf2  = OptionFreeFactory(event=euf, position=2)
         otf3  = OptionTimeFactory(event=euf, position=5)
@@ -680,7 +680,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         off1  = OptionFreeFactory(event=euf, position=1)
         off2  = OptionFreeFactory(event=euf, position=2)
         otf1  = OptionTimeFactory(event=euf, position=5)
@@ -819,7 +819,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         
         off1  = OptionFreeFactory(event=euf, position=1)
         off2  = OptionFreeFactory(event=euf, position=2)
@@ -960,7 +960,7 @@ class EventGuestViewsTests(TestCase):
         log = self.client.login(username=user.username, password='1234')
         self.assertEqual(log, True)
         
-        euf = EventUserFactory()
+        euf = EventUserFactory(author=user)
         
         off1  = OptionFreeFactory(event=euf, position=1)
         off2  = OptionFreeFactory(event=euf, position=2)
@@ -990,7 +990,7 @@ class EventGuestViewsTests(TestCase):
         self.assertEquals(Choice.objects.filter(option__pk=off3.pk).count(),0)
         self.assertEquals(Choice.objects.filter(option__pk=otf1.pk).count(),2)
     
-    def test_end_event_for_guest(self):
+    def test_invit_end_event_for_guest(self):
         egf = EventGuestFactory()
         
         res = self.client.get(reverse('Simplan.event.views.invit_end_event', args=[egf.slug]),follow=False)
@@ -1009,13 +1009,84 @@ class EventGuestViewsTests(TestCase):
         self.assertEquals(mail.outbox[2].from_email, 'Simplan <noreply@simplann.eu>')
         self.assertEquals(mail.outbox[2].to, [egf.mailing_list.split(',')[1].encode('utf-8')])
         
+    def test_invit_end_event_for_user(self):
+        user = UserFactory()
+        log = self.client.login(username=user.username, password='1234')
+        self.assertEqual(log, True)
+        
+        euf = EventUserFactory(author=user)
+        
+        res = self.client.get(reverse('Simplan.event.views.invit_end_event', args=[euf.slug]),follow=False)
+        self.assertEqual(res.status_code, 302)
+        
+        self.assertEquals(len(mail.outbox), 3)
+        self.assertEquals(mail.outbox[0].subject, "Simplan - Lien du sondage : "+euf.title)
+        self.assertEquals(mail.outbox[0].from_email, 'Simplan <noreply@simplann.eu>')
+        self.assertEquals(mail.outbox[0].to, [euf.author.email.encode('utf-8')])
+        
+        self.assertEquals(mail.outbox[1].subject, "Simplan - Participez au Sondage : "+euf.title)
+        self.assertEquals(mail.outbox[1].from_email, 'Simplan <noreply@simplann.eu>')
+        self.assertEquals(mail.outbox[1].to, [euf.mailing_list.split(',')[0].encode('utf-8')])
+        
+        self.assertEquals(mail.outbox[2].subject, "Simplan - Participez au Sondage : "+euf.title)
+        self.assertEquals(mail.outbox[2].from_email, 'Simplan <noreply@simplann.eu>')
+        self.assertEquals(mail.outbox[2].to, [euf.mailing_list.split(',')[1].encode('utf-8')])
+        
+    
+    def test__end_event_for_guest(self):
+        egf = EventGuestFactory()
+        
+        res = self.client.get(reverse('Simplan.event.views.end_event', args=[egf.slug]),follow=False)
+        self.assertEqual(res.status_code, 302)
+        
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].subject, "Simplan - Lien du sondage : "+egf.title)
+        self.assertEquals(mail.outbox[0].from_email, 'Simplan <noreply@simplann.eu>')
+        self.assertEquals(mail.outbox[0].to, [egf.email.encode('utf-8')])
+    
     def test_end_event_for_user(self):
-        #TODO
-        self.assertEqual(0, 0)
-
+        user = UserFactory()
+        log = self.client.login(username=user.username, password='1234')
+        self.assertEqual(log, True)
+        
+        euf = EventUserFactory(author=user)
+        
+        res = self.client.get(reverse('Simplan.event.views.end_event', args=[euf.slug]),follow=False)
+        self.assertEqual(res.status_code, 302)
+        
+        self.assertEquals(len(mail.outbox), 1)
+        self.assertEquals(mail.outbox[0].subject, "Simplan - Lien du sondage : "+euf.title)
+        self.assertEquals(mail.outbox[0].from_email, 'Simplan <noreply@simplann.eu>')
+        self.assertEquals(mail.outbox[0].to, [euf.author.email.encode('utf-8')])
+        
+        
     def test_make_choice_for_guest(self):
-        #TODO
-        self.assertEqual(0, 0)
+        egf = EventGuestFactory()
+        off1  = OptionFreeFactory(event=egf, position=1)
+        off2  = OptionFreeFactory(event=egf, position=2)
+        otf1  = OptionTimeFactory(event=egf, position=5)
+        
+        cf1_1 = ChoiceFactory(option=off1, position=1)
+        cf1_2 = ChoiceFactory(option=off1, position=2)
+        cf1_3 = ChoiceFactory(option=off1, position=3)
+        cf2_1 = ChoiceFactory(option=off2, position=1)
+        cf2_2 = ChoiceFactory(option=off2, position=2)
+        cf2_3 = ChoiceFactory(option=off2, position=3)
+        cf3_1 = ChoiceFactory(option=otf1, position=1)
+        cf3_2 = ChoiceFactory(option=otf1, position=2)
+        cf3_3 = ChoiceFactory(option=otf1, position=3)
+        
+        res = self.client.post(reverse('Simplan.event.views.make_choice', args=[egf.slug]),
+                               {
+                                'pseudo': 'choseen_one',
+                                off1.pk: cf1_1.pk,
+                                off2.pk: cf2_3.pk,
+                                otf1.pk: cf3_1.pk,
+                                }
+                               ,
+                               follow=False)
+        self.assertEqual(res.status_code, 302)
+        
 
     def test_make_choice_for_user(self):
         #TODO
