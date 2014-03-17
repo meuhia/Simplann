@@ -590,6 +590,7 @@ def invit_end_event(request, evt_id):
         except:
             email_admin = ''
             author = ''
+    
     if validate_email(email_admin):
         subject = "Simplan - Lien du sondage : "+event.title
         from_email = 'Simplan <noreply@simplann.eu>'
