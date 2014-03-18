@@ -44,6 +44,7 @@ def details(request, user_name):
 
 def plans(request):
     '''Returns all events of the authenticated user'''
+    
     profile = Profile.objects.get(user=request.user)
 
     user_events = profile.get_events()
@@ -370,6 +371,7 @@ def new_password(request):
 
 def active_account(request):
     '''Active token for a user'''
+
     try:
         token = request.GET['token']
     except KeyError:
@@ -377,6 +379,7 @@ def active_account(request):
 
     token = get_object_or_404(TokenRegister, token = token)
     usr = token.user
+
     # User can't confirm his request if it is too late.
     if datetime.now() > token.date_end:
         return render_template('account/token_account_failed.html')

@@ -51,7 +51,7 @@
             <ul class="dropdown">
               <li><a href="{% url "Simplan.account.views.details" user.username %}">{% trans "Mon profil" %}</a></li>
               <li><a href="{% url "Simplan.account.views.settings_profile" %}">{% trans "Mes paramètres" %}</a></li>
-              <li><a href="#">{% trans "Mes sondages" %}</a></li>
+              <li><a href="{% url "Simplan.account.views.plans" %}">{% trans "Mes sondages" %}</a></li>
               <li><a href="{% url "Simplan.account.views.logout_view" %}?next={{request.build_absolute_uri}}"><i class="fa fa-sign-out"></i>{% trans "Déconnexion" %}</a></li>
             </ul>
             </li>

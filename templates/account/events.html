@@ -1,0 +1,54 @@
+{% extends "account/base.html" %}
+{% load event %}
+{% load i18n %}
+
+{% block header %}
+<h1>{% trans "Mes évènements" %}</h1>
+<p>{% trans "Consultez les évènements que vous avez crée" %}</p>
+{% endblock %}
+
+{% block breadcrumb %}
+    <li><a href="{% url "Simplan.account.views.index" %}">{% trans "Utilisateurs" %}</a></li>
+    <li><a href="{% url "Simplan.account.views.details" user.username %}">{{ usr.username }}</a></li>
+    <li><a href="{% url "Simplan.account.views.plans" %}">{% trans "Mes évènements" %}</a></li>
+    <li class="current">{% trans "Voir" %}</li>
+{% endblock %}
+
+
+
+{% block content %}
+<div class="row content">
+	<div class="large-8 large-centered columns">
+		<table><thead>
+			<tr>
+				<th></th>
+				<th>Evènements</th>
+				<th>Description</th>
+				<th>Options</th>
+			</tr>
+			</thead>
+			<tbody>
+			{% for event in user_events %}
+				<tr>
+					<td></td>
+					<td><a href="{% url "Simplan.event.views.recap_event" event.slug %}">{{event.title}}</a></td>
+					<td>{{event.description}}</td>
+					<td>
+						{% for opt in event.get_options %}
+						{% with option=opt|cast_option %}
+							{% if option.start_date %}
+								<span class="label">{{option.start_date|date:"d M - H:i"}}</span>
+							{% elif option.text %}
+								<span class="label">{{option.text}}</span>
+							{% endif %}
+						{% endwith %}
+						{% endfor %}
+					</td>
+				</tr>
+			{% endfor %}
+			<tbody>
+		</table>
+	</div>
+	
+</div>
+{% endblock %}

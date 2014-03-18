@@ -143,7 +143,6 @@ def edit_event(request, evt_id):
 
                 return HttpResponseRedirect(reverse('Simplan.event.views.new_option', args=[ef.slug]))
             else:
-                print(form)
                 raise Http404
         else:
     

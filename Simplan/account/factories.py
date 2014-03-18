@@ -25,9 +25,6 @@ class UserFactory(factory.DjangoModelFactory):
 class ProfileFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Profile
     
-    username = factory.Sequence(lambda n: 'jondoe{0}'.format(n))
-    email = factory.Sequence(lambda n: 'babardechine{0}@simplan.com'.format(n))
-    
-    id_facebook = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.username.lower(), 'fb'))
-    id_twitter = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.username.lower(), 'twitter'))
-    id_gplus = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.username.lower(), 'gplus'))
+    id_facebook = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.user.username.lower(), 'fb'))
+    id_twitter = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.user.username.lower(), 'twitter'))
+    id_gplus = factory.LazyAttribute(lambda a:'{0}-{1}'.format(a.user.username.lower(), 'gplus'))
