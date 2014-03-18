@@ -42,6 +42,7 @@ def details(request, user_name):
         'usr': usr, 'profile': profile
     })
 
+@login_required
 def plans(request):
     '''Returns all events of the authenticated user'''
     
